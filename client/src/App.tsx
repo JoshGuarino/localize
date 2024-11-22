@@ -1,6 +1,6 @@
 //import { useState } from 'react'
 import './App.css'
-import { Chat } from './components/chat'
+import { Chat } from './components/Chat'
 import { Header } from './components/Header'
 
 function App() {
