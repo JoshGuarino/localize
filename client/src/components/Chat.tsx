@@ -1,33 +1,13 @@
 import { useEffect, useState } from "react"
-//import io from 'socket.io-client'
+import io from 'socket.io-client'
 
 export interface Message {
-  id: number
   name: string
   message: string
   createdAt: Date
 }
 
-const messagesArr: Message[] = [
-  {
-    id: 1,
-    name: 'Josh',
-    message: 'hello world',
-    createdAt: new Date()
-  },
-  {
-    id: 2,
-    name: 'Nick',
-    message: 'hello world',
-    createdAt: new Date(),
-  },
-  {
-    id: 3,
-    name: 'Kristen',
-    message: 'hello world',
-    createdAt: new Date(),
-  },
-]
+const socket = io('http://localhost:3000')
 
 export function Chat() {
   const [messages, setMessages] = useState<Message[]>([])
@@ -35,18 +15,17 @@ export function Chat() {
   const [message, setMessage] = useState('')
 
   useEffect(() => {
-    setMessages(messagesArr)
-    console.log(messagesArr)
+    socket.on('new message', (message: any) => {
+      setMessages([...messages, message]);
+    });
   }, [messages]);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    //socket.emit('newMessage', { name, message });
-    messagesArr.unshift({
-      id: 22,
-      name: name,
-      message: message,
-      createdAt: new Date(),
+    socket.emit('new message', {
+      name,
+      message,
+      createdAt: new Date()
     })
     setMessage('')
     setName('')
@@ -97,8 +76,8 @@ export function Chat() {
 
       <div className="h-full w-full p-2 overflow-auto border flex flex-col space-y-2">
         <ul role="list" className="divide-y">
-          {messages.map((message) => (
-            <li key={message.id} className="flex justify-between py-4 px-4 hover:shadow-md transition duration-200">
+          {messages.map((message, index) => (
+            <li key={index} className="flex justify-between py-4 px-4 hover:shadow-md transition duration-200">
               <div className="flex items-center space-x-2">
                 <span className="text-sm font-medium">{message.name}:</span>
                 <span className="text-gray-500 text-sm">{message.message}</span>
