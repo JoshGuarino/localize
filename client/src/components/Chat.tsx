@@ -69,6 +69,7 @@ export function Chat() {
               onChange={(e) => setName(e.target.value)}
               required
               className="border border-gray-300 p-2 rounded"
+              maxLength={24}
             />
           </div>
           <div className="flex flex-col md:flex-row md:items-center md:gap-4">
@@ -79,9 +80,10 @@ export function Chat() {
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               required
-              rows={4}
-              cols={40}
-              className="border border-gray-300 p-2 rounded"
+              rows={3}
+              cols={48}
+              className="border border-gray-300 p-2 rounded resize-none"
+              maxLength={240}
             ></textarea>
           </div>
           <button
@@ -96,7 +98,7 @@ export function Chat() {
       <div className="h-full w-full p-2 overflow-auto border flex flex-col space-y-2">
         <ul role="list" className="divide-y">
           {messages.map((message) => (
-            <li key={message.id} className="flex justify-between py-2 px-4 hover:shadow-md transition duration-200">
+            <li key={message.id} className="flex justify-between py-4 px-6 hover:shadow-md transition duration-200">
               <div className="flex items-center space-x-2">
                 <span className="text-sm font-medium">{message.name}:</span>
                 <span className="text-gray-500 text-sm">{message.message}</span>

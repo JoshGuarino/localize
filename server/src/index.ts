@@ -2,12 +2,11 @@ import express from 'express'
 import { Server } from 'socket.io'
 import http from 'http'
 import Message from './models/message'
-import router from './models/routes/routes';
+import router from './routes/routes';
 
 const app = express();
 const server = http.createServer(app)
 const io = new Server(server)
-const port = 3000;
 
 app.use('/', router)
 
@@ -20,10 +19,10 @@ io.on('connection', (socket) => {
   })
 })
 
+const port = process.env.PORT || 3000
 const startServer = async () => {
   server.listen(port, () => {
     console.log(`Server listening on port ${port}`);
   })
 }
-
 startServer()
