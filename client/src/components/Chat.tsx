@@ -54,7 +54,7 @@ export function Chat() {
 
   return (
     <>
-      <div>
+      <div className="py-4 px-4">
         <form
           className="flex flex-col md:flex-row md:items-center md:justify-evenly md:gap-8 h-full"
           onSubmit={handleSubmit}
@@ -88,7 +88,7 @@ export function Chat() {
           </div>
           <button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-4 rounded"
           >
             Send
           </button>
@@ -98,7 +98,7 @@ export function Chat() {
       <div className="h-full w-full p-2 overflow-auto border flex flex-col space-y-2">
         <ul role="list" className="divide-y">
           {messages.map((message) => (
-            <li key={message.id} className="flex justify-between py-4 px-6 hover:shadow-md transition duration-200">
+            <li key={message.id} className="flex justify-between py-4 px-4 hover:shadow-md transition duration-200">
               <div className="flex items-center space-x-2">
                 <span className="text-sm font-medium">{message.name}:</span>
                 <span className="text-gray-500 text-sm">{message.message}</span>
