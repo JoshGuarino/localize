@@ -10,7 +10,7 @@ const server = http.createServer(app)
 const io = new Server(server, {
   cors:
   {
-    origin: 'http://localhost:5173',
+    origin: 'http://localhost:5000'
   }
 })
 app.use('/', router)
@@ -25,7 +25,7 @@ io.on('connection', (socket) => {
   })
 })
 
-const port = process.env.PORT || 3000
+const port = process.env.SERVER_PORT || 3000
 const startServer = async () => {
   server.listen(port, () => {
     console.log(`Server listening on port ${port}`)
