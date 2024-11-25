@@ -1,7 +1,6 @@
 import mongoose from 'mongoose'
 const { Schema, model } = mongoose
 
-// message scheme definition
 const messageSchema = new Schema({
   name: {
     type: String,
