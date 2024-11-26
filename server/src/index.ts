@@ -4,6 +4,7 @@ import http from 'http'
 import Message from './models/message'
 import router from './routes/routes'
 import cors from 'cors'
+import dotenv from 'dotenv'
 
 const app = express()
 const server = http.createServer(app)
@@ -15,6 +16,7 @@ const io = new Server(server, {
 })
 app.use('/', router)
 app.use(cors())
+dotenv.config()
 
 io.on('connection', (socket) => {
   console.log('Socket connected')
@@ -25,7 +27,7 @@ io.on('connection', (socket) => {
   })
 })
 
-const port = process.env.SERVER_PORT || 3000
+const port = process.env.SERVER_PORT
 const startServer = async () => {
   server.listen(port, () => {
     console.log(`Server listening on port ${port}`)
