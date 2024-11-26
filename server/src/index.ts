@@ -1,44 +1,42 @@
 import express from 'express'
 import { Server } from 'socket.io'
 import http from 'http'
-import Message from './models/message'
 import router from './routes/routes'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import connectDB from './util/db'
+import events from './socket/events'
 
-// load env vars and configure express
+// load env vars 
 dotenv.config()
+
+// configure express
 const app = express()
 app.use('/', router)
 app.use(cors())
 
-// configure socket.io server
-const server = http.createServer(app)
-const client = process.env.CLIENT_URL
-const io = new Server(
-  server,
-  {
-    cors: { origin: client },
-  },
-)
-
 // connet to mongodb instance
 connectDB()
 
-// listen for on 'new message' event and save to db
-io.on('connection', (socket) => {
-  console.log('Socket connected')
-  socket.on('new message', async (msg) => {
-    const newMessage = new Message(msg)
-    await newMessage.save()
-    io.emit('new message', newMessage)
-  })
+// configure socket.io server
+const server = http.createServer(app)
+const client = process.env.CLIENT_URL
+const io = new Server(server, {
+  cors: {
+    origin: client,
+    methods: ["GET"],
+  },
 })
 
-// set port and start server
-const port = process.env.SERVER_PORT
+// handle on 'connection' socket server
+io.on('connection', (socket) => {
+  console.log('Socket connected')
+  events(io, socket)
+})
+
+// run the server...
 const startServer = async () => {
+  const port = process.env.SERVER_PORT
   server.listen(port, () => {
     console.log(`Server listening on port ${port}`)
   })
