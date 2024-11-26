@@ -9,7 +9,7 @@ export interface Message {
   createdAt: Date
 }
 
-const socket = io(`${import.meta.env.VITE_SERVER_URL}:${import.meta.env.VITE_SERVER_PORT}`)
+const socket = io(import.meta.env.VITE_SERVER_URL)
 
 export function Chat() {
   const [messages, setMessages] = useState<Message[]>([])
