@@ -11,9 +11,4 @@ router.get('/messages', (req, res) => {
   res.send('get messages')
 })
 
-// post a message to chat room
-router.post('/message', (req, res) => {
-  res.send('post message')
-})
-
 export default router
