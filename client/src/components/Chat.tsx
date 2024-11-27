@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import io from 'socket.io-client'
+import { Socket } from 'socket.io-client'
 import { Messages } from "./Messages"
 import { Form } from "./Form"
 
@@ -9,10 +9,12 @@ export interface Message {
   createdAt: Date
 }
 
-const server = import.meta.env.VITE_SERVER_URL
-const socket = io(server)
+interface ChatProps {
+  server: string
+  socket: Socket
+}
 
-export function Chat() {
+export function Chat({ server, socket }: ChatProps) {
   const [messages, setMessages] = useState<Message[]>([])
 
   useEffect(() => {
