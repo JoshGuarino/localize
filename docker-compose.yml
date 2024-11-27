@@ -12,12 +12,15 @@ services:
       - "3000:3000"
     environment:
       MONGO_URI: 'mongodb://mongodb:27017/chatdb'
+      SERVER_PORT: 3000
+      CLIENT_URL: 'http://localhost:5000'
   
   client:
     build: ./client
     ports:
       - "5000:5000"
-    command: npm run dev
+    environment:
+      VITE_SERVER_URL: 'http://localhost:3000'
 
 volumes:
   mongodb_data:
