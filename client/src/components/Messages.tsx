@@ -6,7 +6,7 @@ export function Messages({ messages }: { messages: Message[] }) {
   }
 
   return (
-    <div className="h-full w-full p-2 overflow-auto border flex flex-col space-y-2">
+    <div className="h-full w-full p-2 overflow-y-auto border flex flex-col space-y-2">
       <ul role="list" className="divide-y">
         {messages.map((message, index) => (
           <li key={index} className="flex justify-between py-4 px-4 hover:shadow-md transition duration-200">

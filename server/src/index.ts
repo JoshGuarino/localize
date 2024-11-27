@@ -12,8 +12,8 @@ dotenv.config()
 
 // configure express
 const app = express()
-app.use('/', router)
 app.use(cors())
+app.use('/', router)
 
 // connet to mongodb instance
 connectDB()
